@@ -20,9 +20,12 @@ app.get('/api/getCard', (req, res) => {
   const selectedPrize = prizes[Math.floor(Math.random() * prizes.length)];
   const wonAmount = Math.floor(Math.random() * 50000) + 1; // Suma câștigată între 1 și 50000
   const currencySymbol = '€'; 
-  const brandId = '123456'
+  const brandId = '123456';
+  const additionalValue = Math.floor(Math.random() * 1447) + 10; // Random value between 10 and 1456
 
-  res.json({ brand: brandId, card_type: selectedCard, prize: selectedPrize, won_amount: wonAmount,currencySymbol: currencySymbol });
+
+
+  res.json({ brand: brandId, card_type: selectedCard, prize: selectedPrize, won_amount: wonAmount,currencySymbol: currencySymbol, additional_value: additionalValue});
 });
 
 app.get('/api/getChest', (req, res) => {
