@@ -69,13 +69,19 @@ app.get('/api/getCard', (req, res) => {
   const brandId = '123456';
   const additionalValue = Math.floor(Math.random() * 1447) + 10;
 
+  // Logica pentru multiplicator
+  const hasMultiplier = selectedPrize === 'Multiplier';
+  const multiplierValue = hasMultiplier ? Math.floor(Math.random() * 6) + 5 : null;
+
   res.json({
     brand: brandId,
     card_type: selectedCard,
     prize: selectedPrize,
     won_amount: wonAmount,
     currencySymbol: currencySymbol,
-    additional_value: additionalValue
+    additional_value: additionalValue,
+    has_multiplier: hasMultiplier,
+    multiplier_value: multiplierValue
   });
 });
 
