@@ -54,7 +54,7 @@
 // };
 
 // const prizeValueRanges = {
-//   'Common': { min: 1, max: 10000 },
+//   'Common': { min: 1, max: 10000 },11
 //   'Uncommon': { min: 10001, max: 20000 },
 //   'Rare': { min: 20001, max: 30000 },
 //   'Epic': { min: 30001, max: 40000 },
@@ -255,19 +255,27 @@ const counters = {
   multiplier: 0,
   legendary: 0
 };
+app.get('/api/rounds/:type', (req, res) => {
+  const type = req.params.type;
+  const rounds = (type === 'regular' || type === 'uncommon') ? 6 : 8;
+  res.json({ rounds });
+});
 
-// Functie pentru a returna premiile pe rand
 function getPrize(req, res, card_type) {
   const index = counters[card_type];
-  counters[card_type] = (index + 1) % pulls[card_type].length; // actualizează contorul circular
+  counters[card_type] = (index + 1) % pulls[card_type].length;
   res.json(pulls[card_type][index]);
 }
 
-// Endpoints
 app.get('/api/regular', (req, res) => getPrize(req, res, 'regular'));
 app.get('/api/uncommon', (req, res) => getPrize(req, res, 'uncommon'));
 app.get('/api/multiplier', (req, res) => getPrize(req, res, 'multiplier'));
 app.get('/api/legendary', (req, res) => getPrize(req, res, 'legendary'));
-
+app.get('/api/reset', (req, res) => {
+  Object.keys(counters).forEach(key => {
+    counters[key] = 0;
+  });
+  res.json({ message: "All counters reset." });
+});
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serverul rulează pe portul ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
