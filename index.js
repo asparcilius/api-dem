@@ -246,6 +246,16 @@ const pulls = {
     { card_type: 'Epic', prize: 'Free Spins', won_amount: '400', additional_value: 6400},
     { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000}
   ]
+  // legendary: [
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000},
+  //   { card_type: 'Legendary', prize: 'Free Spins', won_amount: '1000', additional_value: 15000}
+  // ]
 };
 
 // Contor pentru fiecare tip de apelare
@@ -257,7 +267,7 @@ const counters = {
 };
 app.get('/api/rounds/:type', (req, res) => {
   const type = req.params.type;
-  const rounds = (type === 'regular' || type === 'uncommon') ? 6 : 8;
+  const rounds = (type === 'regular' || type === 'uncommon') ? 6 : (type === 'multiplier') ? 9 : 8;
   res.json({ rounds });
 });
 
